@@ -17,12 +17,13 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // Acceso exclusivo para ADMINISTRADOR
+                        // Vistas exclusivas para ADMINISTRADOR (Pregunta 5)
                         .requestMatchers("/web/usuarios/**").hasAuthority("ADMINISTRADOR")
 
-                        // Acceso para ENFERMERO, MÉDICO y ADMINISTRADOR
+                        // Vistas para ENFERMERO, MÉDICO y ADMINISTRADOR (Pregunta 5)
                         .requestMatchers("/web/valoraciones/**", "/api/valoraciones/**").hasAnyAuthority("ADMINISTRADOR", "ENFERMERO", "MÉDICO")
 
+                        // Cualquier otra solicitud requiere estar autenticado
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
