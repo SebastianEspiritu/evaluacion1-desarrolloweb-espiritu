@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Valoración - Enfermería</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5" style="max-width: 600px;">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">RF-ENF-07: Registrar Valoración</h4>
+    </div>
+    <div class="card-body">
+      <form th:action="@{/web/valoraciones/guardar}" th:object="${valoracion}" method="post">
+        <div class="mb-3">
+          <label class="form-label">ID Paciente:</label>
+          <input type="number" th:field="*{pacienteId}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">ID Enfermero:</label>
+          <input type="number" th:field="*{enfermeroId}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Motivo de Consulta:</label>
+          <input type="text" th:field="*{motivoConsulta}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Observaciones:</label>
+          <textarea th:field="*{observaciones}" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Plan de Cuidados:</label>
+          <textarea th:field="*{planCuidados}" class="form-control" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Guardar Valoración</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

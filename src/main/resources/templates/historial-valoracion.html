@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Valoraciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow mb-4">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">RF-ENF-09: Historial de Valoraciones por Paciente</h4>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/web/valoraciones/historial}" method="get" class="row g-3">
+                <div class="col-auto">
+                    <input type="number" name="pacienteId" th:value="${pacienteIdBuscado}" class="form-control" placeholder="Ingrese ID del Paciente" required>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Buscar Historial</button>
+                </div>
+                <div class="col-auto">
+                    <a th:href="@{/web/valoraciones/nuevo}" class="btn btn-secondary">Nueva Valoración</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div th:if="${historial != null}" class="card shadow">
+        <div class="card-body">
+            <h5>Resultados para Paciente ID: <span th:text="${pacienteIdBuscado}"></span></h5>
+            <table class="table table-striped table-hover mt-3">
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha y Hora</th>
+                    <th>Enfermero ID</th>
+                    <th>Motivo de Consulta</th>
+                    <th>Observaciones</th>
+                    <th>Plan de Cuidados</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="val : ${historial}">
+                    <td th:text="${val.id}"></td>
+                    <td th:text="${#temporals.format(val.fechaHora, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${val.enfermeroId}"></td>
+                    <td th:text="${val.motivoConsulta}"></td>
+                    <td th:text="${val.observaciones}"></td>
+                    <td th:text="${val.planCuidados}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(historial)}">
+                    <td colspan="6" class="text-center text-muted">No se encontraron valoraciones para este paciente.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
