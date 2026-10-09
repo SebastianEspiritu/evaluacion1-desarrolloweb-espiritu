@@ -15,7 +15,7 @@
       <form th:action="@{/web/valoraciones/guardar}" th:object="${valoracion}" method="post">
         <div class="mb-3">
           <label class="form-label">ID Paciente:</label>
-          <input type="number" th:field="*{pacienteId}" class="form-control" required>
+          <input type="number" th:field="*{paciente.id}" class="form-control" required />
         </div>
         <div class="mb-3">
           <label class="form-label">ID Enfermero:</label>

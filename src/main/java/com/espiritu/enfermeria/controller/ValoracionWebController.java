@@ -25,11 +25,14 @@ public class ValoracionWebController {
         return "form-valoracion";
     }
 
-    // Procesar el formulario de registro
+    // Procesar el formulario de registro (SE ACTUALIZÓ .getPaciente().getId())
     @PostMapping("/guardar")
     public String guardarValoracion(@ModelAttribute("valoracion") Valoracion valoracion) {
         valoracionService.registrarValoracion(valoracion);
-        return "redirect:/web/valoraciones/historial?pacienteId=" + valoracion.getPacienteId();
+
+        // Si el paciente no es nulo, obtenemos su ID desde el objeto Paciente
+        Long pacienteId = (valoracion.getPaciente() != null) ? valoracion.getPaciente().getId() : null;
+        return "redirect:/web/valoraciones/historial?pacienteId=" + (pacienteId != null ? pacienteId : "");
     }
 
     // RF-ENF-09: Vista para buscar e imprimir el historial de un paciente
